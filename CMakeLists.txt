@@ -8,7 +8,7 @@ set(SOURCE_FILES src/gaussian_blur.cpp)
 
 find_package( CImg REQUIRED )
 
-link_directories(${CImg_SYSTEM_LIBS_DIR})
-include_directories(${CImg_INCLUDE_DIRS})
+include_directories(${CIMG_INCLUDE_DIRS})
 
 add_executable(gaussian_blur ${SOURCE_FILES})
+target_link_libraries(gaussian_blur ${CIMG_LINK_LIBRARIES})
