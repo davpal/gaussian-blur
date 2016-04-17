@@ -5,7 +5,6 @@
 CImg<unsigned char> gaussianBlur(const CImg<unsigned char> & originalImage, float radius) {
     CImg<unsigned char> image(originalImage);
     std::vector<int> box = gaussianBoxes(radius, 3);
-    std::cout << box[0] << '\n';
     boxBlur(image, (box[0] - 1) / 2);
     boxBlur(image, (box[1] - 1) / 2);
     boxBlur(image, (box[2] - 1) / 2);
