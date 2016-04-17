@@ -7,7 +7,7 @@ using namespace cimg_library;
 void help();
 
 int main(int argc, char * argv[]) {
-    if(argc < 2) {
+    if(argc < 3) {
         help();
         exit(0);
     }
@@ -15,7 +15,7 @@ int main(int argc, char * argv[]) {
     CImg<unsigned char> image(argv[1]);
     CImgDisplay imageDisplay(image, "Original image");
     
-    CImg<unsigned char> blurred = gaussianBlur(image, 2.0f);
+    CImg<unsigned char> blurred = gaussianBlur(image, atof(argv[2]));
     CImgDisplay blurredDisplay(blurred, "Blurred image");
     
     while(!imageDisplay.is_closed()) {
@@ -25,5 +25,5 @@ int main(int argc, char * argv[]) {
 }
 
 void help() {
-    std::cout << "usage: gaussian_blur <image>\n";
+    std::cout << "usage: gaussian_blur <image> <radius>\n";
 }

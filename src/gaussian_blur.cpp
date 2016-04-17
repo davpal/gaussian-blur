@@ -1,10 +1,36 @@
 #include "gaussian_blur.h"
 #include <cmath>
+#include <iostream>
 
 CImg<unsigned char> gaussianBlur(const CImg<unsigned char> & originalImage, float radius) {
     CImg<unsigned char> image(originalImage);
-    std::vector<int> box = gaussianBoxes(2.0f, 3);
+    std::vector<int> box = gaussianBoxes(radius, 3);
+    std::cout << box[0] << '\n';
+    boxBlur(image, (box[0] - 1) / 2);
+    boxBlur(image, (box[1] - 1) / 2);
+    boxBlur(image, (box[2] - 1) / 2);
     return image;
+}
+
+void boxBlur(CImg<unsigned char> & image, float r) {
+    for(int i = 0; i < image.height(); ++i)
+        for(int j = 0; j < image.width(); ++j) {
+            float red = 0;
+            float green = 0;
+            float blue = 0;
+            for(int iy = i - r; iy < i + r + 1; ++iy)
+                for(int ix = j - r; ix < j + r + 1; ++ix) {
+                    int x = std::min(image.width()  - 1, std::max(0, ix));
+                    int y = std::min(image.height() - 1, std::max(0, iy));
+                    red   += image(x, y, 0, 0);
+                    green += image(x, y, 0, 1);
+                    blue  += image(x, y, 0, 2);
+                }
+
+            image(j, i, 0, 0) = red   / ((r + r + 1) * (r + r + 1));
+            image(j, i, 0, 1) = green / ((r + r + 1) * (r + r + 1));
+            image(j, i, 0, 2) = blue  / ((r + r + 1) * (r + r + 1));
+        }
 }
 
 std::vector<int> gaussianBoxes(float sigma, int n) {
