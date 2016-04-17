@@ -12,6 +12,10 @@ int main(int argc, char * argv[]) {
     }
 
     CImg<unsigned char> image(argv[1]);
+    CImgDisplay imageDisplay(image, "Original image");
+    while(!imageDisplay.is_closed()) {
+        imageDisplay.wait();
+    }
 }
 
 void help() {
