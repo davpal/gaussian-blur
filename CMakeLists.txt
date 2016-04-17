@@ -4,7 +4,7 @@ project(gaussian_blur)
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES src/gaussian_blur.cpp)
+set(SOURCE_FILES src/main.cpp src/gaussian_blur.cpp)
 
 find_package( CImg REQUIRED )
 
